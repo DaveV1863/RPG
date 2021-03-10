@@ -6,7 +6,7 @@ using RPG.Core;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour
+    public class Fighter : MonoBehaviour, IAction
     {
         [SerializeField] float weaponRange = 2f;
 
@@ -26,8 +26,14 @@ namespace RPG.Combat
             }
             else
             {
-                GetComponent<Movement>().Stop();
+                GetComponent<Movement>().Cancel();
+                AttackBehaviour();
             }
+        }
+
+        private void AttackBehaviour()
+        {
+            GetComponent<Animator>().SetTrigger("attack");
         }
 
         //This calculates distance between you and the target
@@ -46,5 +52,12 @@ namespace RPG.Combat
             GetComponent<ActionScheduler>().StartAction(this);
             target = combatTarget.transform;
         }
+
+        //Animation Event
+        void Hit()
+        {
+
+        }
+
     }
 }

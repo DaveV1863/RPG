@@ -1,4 +1,4 @@
-﻿using RPG.Combat;
+﻿
 using RPG.Core;
 using System;
 using System.Collections;
@@ -10,7 +10,7 @@ using UnityEngine.AI;
 namespace RPG.Movements
 {
 
-    public class Movement : MonoBehaviour
+    public class Movement : MonoBehaviour, IAction
     {
         [SerializeField] Transform target;
 
@@ -29,7 +29,6 @@ namespace RPG.Movements
         public void StartMoveAction(Vector3 destination)
         {
             GetComponent<ActionScheduler>().StartAction(this);
-            GetComponent<Fighter>().Cancel();
             Moveto(destination);
         }
         
@@ -41,7 +40,7 @@ namespace RPG.Movements
         }
 
         //This will stop the object from moving
-        public void Stop()
+        public void Cancel()
         {
             navMeshAgent.isStopped = true;
         }
